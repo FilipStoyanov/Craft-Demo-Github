@@ -33,10 +33,7 @@ const mockFreshDeskUser = {
 }
 
 describe("FreshDeskUser", () => {
-    let user;
-    beforeEach(() => {
-        user = new FreshDeskUserLib.FreshDeskUser(mockFreshDeskUser.contacts);
-    })
+    let user = new FreshDeskUserLib.FreshDeskUser(mockFreshDeskUser.contacts);
     test("should resolve with right contact name for existed contact", () => {
         expect(user.getName(0)).toEqual(freshDeskContact1.name);
         expect(user.getName(1)).toEqual(freshDeskContact2.name);

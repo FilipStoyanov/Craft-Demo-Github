@@ -1,16 +1,18 @@
 import { Contact, GitUser } from "../interfaces";
 import { addNewContact, updateContactFromFreshDesk } from "../fetch";
 export class FreshDeskUser {
-    private contacts: Array<Contact>;
+    private contacts: Array<Contact> = [];
 
     constructor(newContacts: Array<Contact>) {
-        this.contacts = [...newContacts];
+        for(let i=0; i < newContacts.length; ++i) {
+            this.contacts[i] = newContacts[i];
+        }
     }
 
-    getName(contactIndex: number): string | undefined {
+    public getName(contactIndex: number): string | undefined {
         return this.contacts[contactIndex].name;
     }
-    getContact(name: string): Contact | null {
+    public getContact(name: string): Contact | null {
         for (let i = 0; i < this.contacts.length; ++i) {
             if (this.getName(i) === name) {
                 return this.contacts[i];
@@ -19,7 +21,7 @@ export class FreshDeskUser {
         return null;
     }
 
-    hasContactWithThisName(name: string) {
+    public hasContactWithThisName(name: string):boolean {
         for (let i = 0; i < this.contacts.length; ++i) {
             if (this.getName(i) === name) {
                 return true;
@@ -28,7 +30,7 @@ export class FreshDeskUser {
         return false;
     }
 
-    updateFreshDeskContact(githubUser:GitUser, subdomain: string) {
+    public updateFreshDeskContact(githubUser:GitUser, subdomain: string):void {
         let updatedContact:Contact = {};
         updatedContact.email = githubUser.email;
         updatedContact.name = githubUser.name;
