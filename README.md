@@ -8,7 +8,8 @@ Git:
 ### Running the program
 - Go to project folder
 - Run `npm install`
-- Then run `npm start [GitHub user login (username)] [Freshdesk subdomain]` 
+- Run `npm start`
+- Then enter GitHub user login (username) and Freshdesk subdomain
 
 ### Running the tests
 - Run `npm run test`

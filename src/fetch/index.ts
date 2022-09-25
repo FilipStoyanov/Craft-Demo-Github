@@ -11,32 +11,36 @@ export const fetchUserFromGithub = async (username: string, token: string | unde
                 'Authorization': `bearer ${token}`,
             }
         });
+        if (response.ok) {
+            return response.json();
+        } else {
+            return { message: 'Bad credentials', status: response.status };
+        }
     }
-    const result = response ? response.json() : null;
-    return result;
+    return null;
 }
 
-export const fetchUserFromFreshDesk = async (subdomain: string,  token: string | undefined = process.env.FRESHDESK_TOKEN ) => {
+export const fetchUserFromFreshDesk = async (subdomain: string, token: string | undefined = process.env.FRESHDESK_TOKEN) => {
     let response;
     const encodedFreshDeskToken = base64EncodeFreshDeskKey(token);
     if (subdomain.length > 0) {
-        try {
-            response = await fetch(`https://${subdomain}.freshdesk.com/api/v2/contacts`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `bearer ${encodedFreshDeskToken}`,
-                }
-            });
-        } catch (error) {
-            console.log(error);
+        response = await fetch(`https://${subdomain}.freshdesk.com/api/v2/contacts`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${encodedFreshDeskToken}`,
+            }
+        });
+        if (response.ok) {
+            return response.json();
+        } else {
+            return { message: 'Bad Freshdesk creadentials', status: response.status };
         }
     }
-    const result = response ? response.json() : null;
-    return result;
+    return null;
 }
 
-export const updateContactFromFreshDesk = async (newContact: Contact, subdomain: string, id?: number, token: string | undefined = process.env.FRESHDESK_TOKEN ) => {
+export const updateContactFromFreshDesk = async (newContact: Contact, subdomain: string, id?: number, token: string | undefined = process.env.FRESHDESK_TOKEN) => {
     let response;
     const encodedFreshDeskToken = base64EncodeFreshDeskKey(token);
     try {
@@ -49,13 +53,13 @@ export const updateContactFromFreshDesk = async (newContact: Contact, subdomain:
             body: JSON.stringify(newContact)
         });
     } catch (error) {
-        console.log(error);
+        throw error;
     }
     const result = response ? response.json() : null;
     return result;
 }
 
-export const addNewContact = async (newContact: Contact, subdomain: string,  token: string | undefined = process.env.FRESHDESK_TOKEN) => {
+export const addNewContact = async (newContact: Contact, subdomain: string, token: string | undefined = process.env.FRESHDESK_TOKEN) => {
     let response;
     const encodedFreshDeskToken = base64EncodeFreshDeskKey(token);
     try {
@@ -68,7 +72,7 @@ export const addNewContact = async (newContact: Contact, subdomain: string,  tok
             body: JSON.stringify(newContact)
         });
     } catch (error) {
-        console.log(error);
+        throw Error;
     }
     const result = response ? response.json() : null;
     return result;

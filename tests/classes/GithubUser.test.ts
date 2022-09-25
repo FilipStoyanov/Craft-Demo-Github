@@ -10,7 +10,7 @@ const mockGithubUserData = {
     created_at: new Date("December 17, 2021 03:24:00"),
     updated_at: new Date("September 22, 2022 17:10:30")
 };
-describe ("GithubUser", () => {
+describe("GithubUser", () => {
     let user = new GithubUserLib.GithubUser(mockGithubUserData);
     test("should return with the proper name for existed github user", () => {
         expect(user.getUsername()).toEqual("FilipStoyanov");

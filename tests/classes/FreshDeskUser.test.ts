@@ -27,8 +27,8 @@ const freshDeskContact2 = {
 }
 const mockFreshDeskUser = {
     contacts: [
-      freshDeskContact1,
-      freshDeskContact2
+        freshDeskContact1,
+        freshDeskContact2
     ]
 }
 

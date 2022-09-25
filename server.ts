@@ -5,41 +5,57 @@ import { fetchUserFromFreshDesk, fetchUserFromGithub } from "./src/fetch";
 const express = require("express");
 const cors = require('cors');
 const dotenv = require('dotenv');
-dotenv.config();
-
 const app = express();
+dotenv.config();
 app.use(cors());
+
+
+const dbConnection = require("./src/db/connection");
+const insertOrUpdateGithubUser = require('./src/db/queries');
 
 const PORT = process.env.PORT || 8080;
 
-const getCommandLineArgs = (): Array<string> => {
-    let githubUsername: string = '';
-    let freshDeskSubdomain: string = '';
-    process.argv.forEach(function (val, index) {
-        if (index === 2) {
-            githubUsername = val;
-        }
-        if (index === 3) {
-            freshDeskSubdomain = val;
-        }
+const server = (githubUsername: string, freshdeskSubdomain: string) => {
+    app.listen(PORT, () => {
+        let gitHubUser;
+        let freshDeskUser;
+        fetchUserFromGithub(githubUsername, process.env.GITHUB_TOKEN).then((data) => {
+            if (!data.status) {
+                insertOrUpdateGithubUser(data);
+                gitHubUser = new GithubUser(data);
+                const gitUserData = gitHubUser.getUserData();
+                fetchUserFromFreshDesk(freshdeskSubdomain, process.env.FRESHDESK_TOKEN).then((data) => {
+                    if (!data.status) {
+                        if (data && data.length > 0) {
+                            freshDeskUser = new FreshDeskUser(data);
+                            freshDeskUser.updateFreshDeskContact(gitUserData, freshdeskSubdomain);
+                        }
+                    } else {
+                        console.log('Bad Freshdesk credentials');
+                        process.exit(0);
+                    }
+                }).catch((err: Error) => {
+                    throw err;
+                })
+            } else {
+                console.log('Bad GitHub credentials');
+                process.exit(0);
+            }
+        }).catch((err: Error) => {
+            throw err;
+        })
     });
-    return [githubUsername, freshDeskSubdomain];
 }
 
-app.listen(PORT, () => {
-    let gitHubUser;
-    let freshDeskUser;
-    const commandArgs: Array<string> = getCommandLineArgs();
-    fetchUserFromGithub(commandArgs[0], process.env.GITHUB_TOKEN).then((data) => {
-        gitHubUser = new GithubUser(data);
-        const gitUserData = gitHubUser.getUserData();
-        fetchUserFromFreshDesk(commandArgs[1], process.env.FRESHDESK_TOKEN).then((data) => {
-            freshDeskUser = new FreshDeskUser(data);
-            freshDeskUser.updateFreshDeskContact(gitUserData,commandArgs[1]);
-        }).catch((err) => {
-            console.log('Invalid subdomain');
-        })
-    }).catch((err) => {
-        console.log(err);
-    })
+const readline = require("readline");
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
 });
+rl.question("Please, enter Github login (username) : ", (githubUsername: string) => {
+    rl.question("Please, enter Freshdesk subdomain : ", (freshDeskSubdomain: string) => {
+        dbConnection.connectToDatabase();
+        server(githubUsername, freshDeskSubdomain);
+    })
+})
+

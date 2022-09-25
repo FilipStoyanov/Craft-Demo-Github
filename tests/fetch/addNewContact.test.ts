@@ -1,4 +1,4 @@
-const addNewContactLib = require("../../src/fetch/index.ts");
+import { addNewContact } from "../../src/fetch";
 const INVALID_KEY = "Xrb0b0PYA551WVzCX";
 const VALID_KEY = "Xrb0b0PYA551WVzCXO";
 const VALID_SUBDOMAIN = "filip";
@@ -14,19 +14,19 @@ const newContact = {
 
 describe("Fetch User from Github API", () => {
     test("should return invalid credentials when key is invalid", async () => {
-        const data = await addNewContactLib.addNewContact(newContact, VALID_SUBDOMAIN, INVALID_KEY);
+        const data = await addNewContact(newContact, VALID_SUBDOMAIN, INVALID_KEY);
         expect(data).toHaveProperty('code', 'invalid_credentials');
     });
     test("should return invalid credentials when subdomain is invalid", async () => {
-        const data = await addNewContactLib.addNewContact(newContact, INVALID_SUBDOMAIN, VALID_KEY);
+        const data = await addNewContact(newContact, INVALID_SUBDOMAIN, VALID_KEY);
         expect(data).toHaveProperty('code', 'invalid_credentials');
     });
     test("should return invalid credentials when subdomain is invalid and key is invalid", async () => {
-        const data = await addNewContactLib.addNewContact(newContact, INVALID_SUBDOMAIN, INVALID_KEY);
+        const data = await addNewContact(newContact, INVALID_SUBDOMAIN, INVALID_KEY);
         expect(data).toHaveProperty('code', 'invalid_credentials');
     });
     test("should return contact object", async () => {
-        const data = await addNewContactLib.addNewContact(newContact, VALID_SUBDOMAIN, VALID_KEY);
+        const data = await addNewContact(newContact, VALID_SUBDOMAIN, VALID_KEY);
         expect(data).toHaveProperty('name', newContact.name);
     });
 })
