@@ -36,19 +36,14 @@ export class FreshDeskUser {
         updatedContact.name = githubUser.name;
         updatedContact.company_id = githubUser.company;
         updatedContact.description = githubUser.bio;
+        updatedContact.twitter_id = githubUser.twitter_username;
 
-        // These fields are always required and I can not get them from github user because github user doesn't have these fields 
+        // These fields are always required
         if (!updatedContact.email) {
             updatedContact.email = `filipstoianov${Math.random() * 1000}@gmail.com`;
         }
         if (!updatedContact.twitter_id) {
             updatedContact.twitter_id = `121231131${Math.random() * 1000}`;
-        }
-        if (!updatedContact.unique_external_id) {
-            updatedContact.unique_external_id = `141241${Math.random() * 1000}4101`;
-        }
-        if (!updatedContact.mobile) {
-            updatedContact.mobile = '359887731004';
         }
 
         if (githubUser.name && this.hasContactWithThisName(githubUser.name)) {
