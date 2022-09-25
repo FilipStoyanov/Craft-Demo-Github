@@ -41,6 +41,10 @@ export class FreshDeskUser {
             const contact: Contact | null = this.getContact(githubUser.name);
             if (contact) {
                 updateContactFromFreshDesk(updatedContact, subdomain, contact.id, process.env.FRESHDESK_TOKEN).then((data) => {
+                    if(data.errors) {
+                        console.log('Not unique field');
+                        process.exit(0);
+                    }
                     console.log('Updated contact in FreshDesk');
                 }).catch((error: Error) => {
                     throw error;
@@ -48,7 +52,13 @@ export class FreshDeskUser {
             }
         } else {
             addNewContact(updatedContact, subdomain, process.env.FRESHDESK_TOKEN).then((data) => {
-                console.log('Created contact in FreshDesk');
+                if(data.errors) {
+                    console.log('Not unique field');
+                    console.log(data);
+                    process.exit(0);
+                }else {
+                    console.log('Created contact in FreshDesk');
+                }
             }).catch((error: Error) => {
                 throw error;
             });

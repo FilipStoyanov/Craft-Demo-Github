@@ -11,7 +11,7 @@ export const fetchUserFromGithub = async (username: string, token: string | unde
                 'Authorization': `bearer ${token}`,
             }
         });
-        if (response.ok) {
+        if (response.status === 200) {
             return response.json();
         } else {
             return { message: 'Bad credentials', status: response.status };
@@ -31,7 +31,7 @@ export const fetchUserFromFreshDesk = async (subdomain: string, token: string | 
                 'Authorization': `bearer ${encodedFreshDeskToken}`,
             }
         });
-        if (response.ok) {
+        if (response.status === 200) {
             return response.json();
         } else {
             return { message: 'Bad Freshdesk creadentials', status: response.status };
