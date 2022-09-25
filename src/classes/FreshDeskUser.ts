@@ -34,17 +34,8 @@ export class FreshDeskUser {
         let updatedContact: Contact = {};
         updatedContact.email = githubUser.email;
         updatedContact.name = githubUser.name;
-        updatedContact.company_id = githubUser.company;
         updatedContact.description = githubUser.bio;
         updatedContact.twitter_id = githubUser.twitter_username;
-
-        // These fields are always required
-        if (!updatedContact.email) {
-            updatedContact.email = `filipstoianov${Math.random() * 1000}@gmail.com`;
-        }
-        if (!updatedContact.twitter_id) {
-            updatedContact.twitter_id = `121231131${Math.random() * 1000}`;
-        }
 
         if (githubUser.name && this.hasContactWithThisName(githubUser.name)) {
             const contact: Contact | null = this.getContact(githubUser.name);
