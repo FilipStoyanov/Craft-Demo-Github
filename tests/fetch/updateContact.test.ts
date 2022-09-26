@@ -3,9 +3,9 @@ const INVALID_KEY = "Xrb0b0PYA551WVzCX";
 const VALID_KEY = "Xrb0b0PYA551WVzCXO";
 const VALID_SUBDOMAIN = "filip";
 const INVALID_SUBDOMAIN = "ivan";
-const CONTACT_ID = 103014171750;
+const CONTACT_ID = 103015675881;
 const updatedContact = {
-    name: "Ivan Georgiev",
+    name: "FilipStoyanov",
     description: "I am a Backend Software Developer",
     mobile: "359886631005",
     twitter_id: `12123113100${Math.random() * 10000}`,
