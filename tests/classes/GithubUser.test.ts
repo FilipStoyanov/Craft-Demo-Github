@@ -24,6 +24,6 @@ describe("GithubUser", () => {
     });
     test("should resolve with an empty object for empty user", () => {
         const emptyUser = new GithubUserLib.GithubUser();
-        expect(emptyUser.getUserData()).toEqual({});
+        expect(emptyUser.getUserData()).toEqual(null);
     })
 });

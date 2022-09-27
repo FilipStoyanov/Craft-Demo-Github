@@ -13,10 +13,10 @@ export class GithubUser {
     return "";
   }
 
-  getUserData(): GitUser {
+  getUserData(): GitUser | null{
     if (this.userData) {
       return this.userData;
     }
-    return {};
+    return null;
   }
 }

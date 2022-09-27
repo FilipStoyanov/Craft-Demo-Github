@@ -1,6 +1,6 @@
 import { fetchUserFromGithub } from "../../src/fetch";
 const INVALID_KEY = "ghp_QviHEOsiJ52OhVusN4i4ne9N2xeGtj1Vrji";
-const VALID_KEY = "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";
+const VALID_KEY = "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";
 const VALID_USERNAME = "FilipStoyanov";
 const INVALID_USERNAME = "george";
 const BAD_REQUEST_OBJECT = {

@@ -4,7 +4,7 @@ const VALID_KEY = "Xrb0b0PYA551WVzCXO";
 const VALID_SUBDOMAIN = "filip";
 const INVALID_SUBDOMAIN = "ivan";
 const newContact = {
-    email: `filip.st${Math.random() * 1000}@gmail.com`,
+    email: `filip${Math.random()*1000}@gmail.com`,
     name: "Filip Stoyanov",
     description: "I am a Frontend Software Developer",
     mobile: "359886631005",

@@ -26,7 +26,7 @@ const server = (githubUsername: string, freshdeskSubdomain: string) => {
                 const gitUserData = gitHubUser.getUserData();
                 fetchUserFromFreshDesk(freshdeskSubdomain, process.env.FRESHDESK_TOKEN).then((data) => {
                     if (!data.status) {
-                        if (data && data.length > 0) {
+                        if (data && data.length > 0 && gitUserData) {
                             freshDeskUser = new FreshDeskUser(data);
                             freshDeskUser.updateFreshDeskContact(gitUserData, freshdeskSubdomain);
                         }

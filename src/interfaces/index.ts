@@ -1,5 +1,5 @@
 export interface GitUser {
-    login?: string;
+    login: string;
     id?: number;
     node_id?: string;
     avatar_url?: string;
@@ -17,7 +17,7 @@ export interface GitUser {
     received_events_url?: string;
     type?: string;
     site_admin?: boolean;
-    name?: string;
+    name: string;
     company?: number;
     blog?: string;
     location?: string;
@@ -29,23 +29,23 @@ export interface GitUser {
     public_gists?: number;
     followers?: number;
     following?: number;
-    created_at?: Date;
-    updated_at?: Date;
+    created_at: Date;
+    updated_at: Date;
 };
 
 export interface Contact {
     active?: boolean;
     address?: string;
     description?: string;
-    email?: string;
+    email: string;
     id?: number;
     job_title?: string;
     language?: string;
-    mobile?: string;
-    name?: string;
+    mobile: string;
+    name: string;
     phone?: string;
     time_zone?: string;
-    twitter_id?: string;
+    twitter_id: string;
     custom_fields?: string;
     facebook_id?: string;
     created_at?: Date;
@@ -53,7 +53,7 @@ export interface Contact {
     csat_rating?: string;
     preferred_source?: string;
     company_id?: number;
-    unique_external_id?: string;
+    unique_external_id: string;
     first_name?: string;
     last_name?: string;
     visitor_id?: string;

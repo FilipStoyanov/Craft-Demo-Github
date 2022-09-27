@@ -31,17 +31,22 @@ export class FreshDeskUser {
     }
 
     public updateFreshDeskContact(githubUser: GitUser, subdomain: string): void {
-        let updatedContact: Contact = {};
-        updatedContact.email = githubUser.email;
+        let updatedContact: Contact = {email: "", mobile: "", name:"", phone:"", twitter_id: "", unique_external_id: ""};
+        if(githubUser.email) {
+            updatedContact.email = githubUser.email;
+        }
         updatedContact.name = githubUser.name;
         updatedContact.description = githubUser.bio;
-        updatedContact.twitter_id = githubUser.twitter_username;
+        if(githubUser.twitter_username) {
+            updatedContact.twitter_id = githubUser.twitter_username;
+        }
 
         if (githubUser.name && this.hasContactWithThisName(githubUser.name)) {
             const contact: Contact | null = this.getContact(githubUser.name);
             if (contact) {
                 updateContactFromFreshDesk(updatedContact, subdomain, contact.id, process.env.FRESHDESK_TOKEN).then((data) => {
                     if(data.errors) {
+                        console.log(data.errors);
                         console.log('Not unique field');
                         process.exit(0);
                     }

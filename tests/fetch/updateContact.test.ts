@@ -3,13 +3,14 @@ const INVALID_KEY = "Xrb0b0PYA551WVzCX";
 const VALID_KEY = "Xrb0b0PYA551WVzCXO";
 const VALID_SUBDOMAIN = "filip";
 const INVALID_SUBDOMAIN = "ivan";
-const CONTACT_ID = 103015675881;
+const CONTACT_ID = 103016296235;
 const updatedContact = {
-    name: "FilipStoyanov",
+    name: "Filip Stoyanov",
     description: "I am a Backend Software Developer",
     mobile: "359886631005",
     twitter_id: `12123113100${Math.random() * 10000}`,
-    unique_external_id: `1412414101990${Math.random() * 10000}`
+    unique_external_id: `1412414101990${Math.random() * 10000}`,
+    email: `filip19022000@gmail.com`
 }
 
 describe("Update User from Github API", () => {
